@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>柯昆緯 · Kun-Wei Ko</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #111620;
+      --surface: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.06);
+      --text: #dde4ef;
+      --muted: #6a7a96;
+      --accent: #7ea8d4;
+      --radius: 14px;
+      --gap: 10px;
+      --pad: 16px;
+    }
+
+    html, body {
+      height: 100dvh;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: '標楷體', 'DFKai-SB', 'BiauKai', 'KaiTi', serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .layout {
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap);
+      padding: var(--pad);
+      overflow: hidden;
+    }
+
+    /* glow */
+    .layout::before {
+      content: '';
+      position: fixed;
+      top: -20%; right: -20%;
+      width: 60vw; height: 60vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(100,150,220,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── Hero row ── */
+    .hero {
+      flex-shrink: 0;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 4px 0 2px;
+    }
+
+    .hero-name {
+      font-size: clamp(28px, 8vw, 40px);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .hero-right {
+      text-align: right;
+    }
+
+    .hero-name-en {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .hero-tags {
+      display: flex;
+      gap: 5px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 10px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.05);
+    }
+
+    /* ── Shared card ── */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: var(--pad);
+    }
+
+    .label {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    /* ── Work + Edu row ── */
+    .mid-row {
+      display: flex;
+      gap: var(--gap);
+      flex-shrink: 0;
+    }
+
+    .work-card {
+      flex: 1;
+    }
+
+    .work-title { font-size: 16px; font-weight: 500; }
+    .work-sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+    .work-badge {
+      display: inline-block;
+      margin-top: 10px;
+      background: rgba(126,168,212,0.12);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 10px;
+    }
+
+    .edu-card {
+      flex: 1;
+    }
+
+    .edu-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .edu-item { display: flex; gap: 8px; align-items: flex-start; }
+
+    .edu-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    .edu-degree { font-size: 11px; font-weight: 500; line-height: 1.3; }
+    .edu-school { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+    /* ── Building ── */
+    .building-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      color: inherit;
+      flex-shrink: 0;
+    }
+
+    .building-name { font-size: 16px; font-weight: 500; }
+    .building-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .building-arrow { color: var(--accent); font-size: 18px; opacity: 0.7; }
+
+    /* ── Projects ── */
+    .projects-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+
+    .project-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      padding: 8px 4px;
+      border-bottom: 1px solid var(--border);
+      transition: opacity 0.15s;
+    }
+
+    .project-item:last-child { border-bottom: none; }
+
+    .project-item:active { opacity: 0.6; }
+
+    .project-icon { font-size: 16px; flex-shrink: 0; }
+    .project-name { font-size: 13px; font-weight: 400; flex: 1; color: var(--text); }
+    .project-arrow { font-size: 12px; color: var(--accent); opacity: 0.5; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1 class="hero-name">柯昆緯</h1>
+    <div class="hero-right">
+      <span class="hero-name-en">Kun-Wei Ko</span>
+      <div class="hero-tags">
+        <span class="tag">建築開發</span>
+        <span class="tag">不動產</span>
+        <span class="tag">AI</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Work + Education -->
+  <div class="mid-row">
+    <div class="card work-card">
+      <p class="label">Work</p>
+      <p class="work-title">鴻騏建設</p>
+      <p class="work-sub">建案規劃・開發管理</p>
+      <span class="work-badge">副理</span>
+    </div>
+    <div class="card edu-card">
+      <p class="label">Education</p>
+      <div class="edu-list">
+        <div class="edu-item">
+          <div class="edu-dot"></div>
+          <div>
+            <p class="edu-degree">電機工程學系 碩士</p>
+            <p class="edu-school">大同大學</p>
+          </div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-dot"></div>
+          <div>
+            <p class="edu-degree">房地產開發與管理研究所 碩士</p>
+            <p class="edu-school">崑山科技大學</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Building -->
+  <div class="card">
+    <p class="label">興建建案</p>
+    <a class="building-link" href="https://newhouse.591.com.tw/139690" target="_blank" rel="noopener">
+      <div>
+        <p class="building-name">初居 3</p>
+        <p class="building-meta">鴻騏建設 · 台南歸仁</p>
+      </div>
+      <span class="building-arrow">↗</span>
+    </a>
+  </div>
+
+  <!-- Projects -->
+  <div class="card projects-card">
+    <p class="label">開發專案</p>
+    <div class="projects-list">
+      <a class="project-item" href="https://changfarmpos.web.app/" target="_blank" rel="noopener">
+        <span class="project-icon">🌾</span>
+        <span class="project-name">張氏農場 POS 系統</span>
+        <span class="project-arrow">↗</span>
+      </a>
+      <a class="project-item" href="https://chuju3-hc.web.app/" target="_blank" rel="noopener">
+        <span class="project-icon">🏗</span>
+        <span class="project-name">初居 3 銷售系統</span>
+        <span class="project-arrow">↗</span>
+      </a>
+      <a class="project-item" href="https://tainan-realestate-ai.vercel.app/" target="_blank" rel="noopener">
+        <span class="project-icon">📊</span>
+        <span class="project-name">台南市不動產分析</span>
+        <span class="project-arrow">↗</span>
+      </a>
+      <a class="project-item" href="https://sitesync-nucktw.web.app/" target="_blank" rel="noopener">
+        <span class="project-icon">🏢</span>
+        <span class="project-name">建築管理系統</span>
+        <span class="project-arrow">↗</span>
+      </a>
+      <a class="project-item" href="https://toilet-design.web.app/planner.html" target="_blank" rel="noopener">
+        <span class="project-icon">🚿</span>
+        <span class="project-name">廁所磁磚計劃工具</span>
+        <span class="project-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
