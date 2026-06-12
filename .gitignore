@@ -1,0 +1,9 @@
+# Firebase 部署快取
+.firebase/
+
+# 本機開發設定與素材
+.claude/
+IMG_1651.jpg
+
+# 個人設定（獨立 repo：NuckTW/personal_setting）
+personal_setting/
